@@ -39,8 +39,8 @@ class FeedDigestActivity : AppCompatActivity() {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId){
-            R.id.action_refresh->{
+        when (item.itemId) {
+            R.id.action_refresh -> {
                 refreshFeeds()
             }
         }
@@ -86,18 +86,29 @@ class FeedDigestActivity : AppCompatActivity() {
         title = feedDigestResponse.feedDigest?.title
     }
 
+
+    /*
+    This method is responsible for hide and visible the view when no feed is available
+     */
     private fun showNoFeedDigest() {
         feedUiBinding.rvFeedDigest.visibility = View.GONE
         feedUiBinding.noFeedData.visibility = View.VISIBLE
         feedUiBinding.shimmerFrameLayout.stopShimmerAnimation()
     }
 
-    private fun refreshFeeds(){
+
+    /*
+    This method is used to refresh the feeds
+     */
+    private fun refreshFeeds() {
         feedUiBinding.rvFeedDigest.visibility = View.GONE
         feedUiBinding.shimmerFrameLayout.startShimmerAnimation()
         feedDigestViewModel?.getFeedDigest()
     }
 
+    /*
+    This method is used to visible and hide the views for showing the feeds
+     */
     private fun showFeedDigestData() {
         feedUiBinding.shimmerFrameLayout.stopShimmerAnimation()
         feedUiBinding.rvFeedDigest.visibility = View.VISIBLE
