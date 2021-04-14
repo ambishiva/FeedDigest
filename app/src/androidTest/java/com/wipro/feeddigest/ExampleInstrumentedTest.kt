@@ -1,6 +1,5 @@
 package com.wipro.feeddigest
 
-import android.util.Config.LOGD
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
@@ -16,9 +15,7 @@ import org.hamcrest.Matcher
 import org.hamcrest.TypeSafeMatcher
 import org.junit.Assert.assertEquals
 import org.junit.Test
-import org.junit.runner.Description
 import org.junit.runner.RunWith
-
 
 private const val TAG = "test-case"
 
@@ -57,7 +54,7 @@ class ExampleInstrumentedTest {
         wait_for_seconds(6000, "ms")
         Espresso.onView(withId(R.id.rv_feed_digest))
             .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.rv_feed_digest)).check(matches(withRecyclerViewSize(14)));
+        onView(withId(R.id.rv_feed_digest)).check(matches(withRecyclerViewSize(12)));
     }
 
     /*

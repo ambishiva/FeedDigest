@@ -2,7 +2,7 @@ package com.wipro.feeddigest.viewmodel
 
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import com.wipro.feeddigest.model.FeedDigestApiResponse
+import com.wipro.feeddigest.model.FeedDigest
 import com.wipro.feeddigest.repository.FeedDigestRepository
 
 
@@ -15,12 +15,14 @@ private const val TAG = "feed-digest-ui"
 class FeedDigestViewModel : ViewModel() {
 
     var feedDigestResponseError = MutableLiveData<Throwable>()
-    var feedDigestResponse: MutableLiveData<FeedDigestApiResponse>? = MutableLiveData()
+    var feedDigestResponse: MutableLiveData<List<FeedDigest>>? = MutableLiveData()
+    var feedDigestTitle: MutableLiveData<String> = MutableLiveData()
 
     fun getFeedDigest() {
         FeedDigestRepository.getFeeds { feedDigestApiResponse ->
             if (feedDigestApiResponse.error == null) {
-                feedDigestResponse?.postValue(feedDigestApiResponse)
+                feedDigestResponse?.postValue(feedDigestApiResponse.feedDigest?.feedDigestList)
+                feedDigestTitle.postValue(feedDigestApiResponse.feedDigest?.title)
             } else {
                 feedDigestResponseError.postValue(feedDigestApiResponse.error)
             }

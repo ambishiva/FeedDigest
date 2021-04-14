@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -11,19 +12,22 @@ import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.wipro.feeddigest.R
 import com.wipro.feeddigest.adapter.FeedDigestAdapter
-import com.wipro.feeddigest.model.FeedDigestApiResponse
-import com.wipro.feeddigest.viewmodel.FeedDigestViewModel
 import com.wipro.feeddigest.databinding.FeedUiBinding
-
+import com.wipro.feeddigest.viewmodel.FeedDigestViewModel
+import org.jetbrains.annotations.TestOnly
 
 /**
  * Main Feed Digest Screen
  * */
 class FeedDigestActivity : AppCompatActivity() {
 
-    private var feedDigestViewModel: FeedDigestViewModel? = null
-    private lateinit var feedUiBinding: FeedUiBinding
-    private var feedDigestAdapter: FeedDigestAdapter? = null
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    var feedDigestViewModel: FeedDigestViewModel? = null
+
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    lateinit var feedUiBinding: FeedUiBinding
+
+    var feedDigestAdapter: FeedDigestAdapter? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -66,10 +70,18 @@ class FeedDigestActivity : AppCompatActivity() {
     private fun addFeedDataObserver() {
         feedDigestViewModel = ViewModelProvider(this).get(FeedDigestViewModel::class.java)
         feedDigestViewModel?.getFeedDigest()
-        feedDigestViewModel?.feedDigestResponse?.observe(this, Observer { feedDigestResponse ->
-            showFeedDigestData()
-            feedDigestAdapter?.setFeedDigest(feedDigestResponse.feedDigest?.feedDigestList)
-            setFeedDigestTitle(feedDigestResponse)
+        feedDigestViewModel?.feedDigestResponse?.observe(this, Observer { feedDigestList ->
+            if (feedDigestList.isEmpty()) {
+                showNoFeedDigest()
+            } else {
+                showFeedDigestData()
+                feedDigestAdapter?.setFeedDigest(feedDigestList)
+            }
+
+        })
+
+        feedDigestViewModel?.feedDigestTitle?.observe(this, Observer { digestTitle ->
+            title = digestTitle
         })
 
         feedDigestViewModel?.feedDigestResponseError?.observe(this, Observer {
@@ -81,11 +93,6 @@ class FeedDigestActivity : AppCompatActivity() {
         super.onResume()
         feedUiBinding.shimmerFrameLayout.startShimmerAnimation()
     }
-
-    private fun setFeedDigestTitle(feedDigestResponse: FeedDigestApiResponse) {
-        title = feedDigestResponse.feedDigest?.title
-    }
-
 
     /*
     This method is responsible for hide and visible the view when no feed is available
@@ -117,5 +124,10 @@ class FeedDigestActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         feedUiBinding.shimmerFrameLayout.stopShimmerAnimation()
+    }
+
+    @TestOnly
+    fun setTestViewModel(feedViewModel: FeedDigestViewModel) {
+        feedDigestViewModel = feedViewModel
     }
 }

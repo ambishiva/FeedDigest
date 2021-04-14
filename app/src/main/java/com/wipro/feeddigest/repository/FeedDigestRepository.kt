@@ -3,6 +3,7 @@ package com.wipro.feeddigest.repository
 import com.androidnetworking.error.ANError
 import com.androidnetworking.interfaces.ParsedRequestListener
 import com.rx2androidnetworking.Rx2AndroidNetworking
+import com.wipro.feeddigest.model.FeedDigest
 import com.wipro.feeddigest.model.FeedDigestModel
 import com.wipro.feeddigest.model.FeedDigestApiResponse
 import com.wipro.feeddigest.utilities.Api
@@ -14,7 +15,8 @@ private const val TAG = "feed-digest-ui"
  */
 object FeedDigestRepository {
 
-    fun getFeeds(callback: (FeedDigestApiResponse) -> Unit) {
+    var feedDigestList = ArrayList<FeedDigest>()
+    fun getFeeds(callback: (FeedDigestApiResponse) -> Unit): ArrayList<FeedDigest> {
         val url = "${Api.deviceBaseUrl}${Api.feedDigestUrl}"
         Rx2AndroidNetworking.get(url)
             .build()
@@ -31,5 +33,7 @@ object FeedDigestRepository {
                         callback(FeedDigestApiResponse(null, error = Throwable(error.message)))
                     }
                 })
+
+        return feedDigestList
     }
 }

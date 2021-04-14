@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.wipro.feeddigest"
-        minSdkVersion 25
+        minSdkVersion 27
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
@@ -32,6 +32,12 @@ android {
     }
     buildFeatures {
         viewBinding true
+    }
+
+    testOptions {
+        unitTests {
+            includeAndroidResources = true
+        }
     }
 }
 
@@ -56,4 +62,10 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.12.0'
     implementation 'com.facebook.shimmer:shimmer:0.1.0@aar'
+    testImplementation 'junit:junit:4.12'
+    testImplementation 'org.mockito:mockito-core:2.10.0'
+    testImplementation 'org.mockito:mockito-inline:2.8.47'
+    androidTestImplementation "android.arch.core:core-testing:1.1.0"
+    testImplementation 'android.arch.core:core-testing:1.0.0-alpha3'
+    testImplementation "org.robolectric:robolectric:4.3.1"
 }
