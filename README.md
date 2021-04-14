@@ -1,5 +1,10 @@
 # FeedDigest
+## Application used to read feeds from cloud
 
-### This library can be used/intergrate in a project as a wrapper for alert messages so that if required to change snackbar to any other lib then can be changed easily without affecting or changes on UI layer.
+FeedDigest is an android application that will show the feeds from cloud using mvvm architecture, RXandroid networking for network calls, espresso for unit testing and facebook shimmer layout for adding shimmer effect.
 
-@
+## Credits
+
+- Rx Android Networking
+- FaceBook shimmer
+- Espresso
