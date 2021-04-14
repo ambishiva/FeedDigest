@@ -1,12 +1,15 @@
 package com.wipro.feeddigest.ui
 
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.wipro.feeddigest.R
 import com.wipro.feeddigest.adapter.FeedDigestAdapter
 import com.wipro.feeddigest.model.FeedDigestApiResponse
 import com.wipro.feeddigest.viewmodel.FeedDigestViewModel
@@ -28,6 +31,20 @@ class FeedDigestActivity : AppCompatActivity() {
         setContentView(feedUiBinding.root)
         initialiseUI()
         addFeedDataObserver()
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main, menu);
+        return true;
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when(item.itemId){
+            R.id.action_refresh->{
+                refreshFeeds()
+            }
+        }
+        return true
     }
 
     private fun initialiseUI() {
@@ -65,10 +82,6 @@ class FeedDigestActivity : AppCompatActivity() {
         feedUiBinding.shimmerFrameLayout.startShimmerAnimation()
     }
 
-    private fun startShimmerAnimation() {
-        feedUiBinding.shimmerFrameLayout.startShimmerAnimation()
-    }
-
     private fun setFeedDigestTitle(feedDigestResponse: FeedDigestApiResponse) {
         title = feedDigestResponse.feedDigest?.title
     }
@@ -77,6 +90,12 @@ class FeedDigestActivity : AppCompatActivity() {
         feedUiBinding.rvFeedDigest.visibility = View.GONE
         feedUiBinding.noFeedData.visibility = View.VISIBLE
         feedUiBinding.shimmerFrameLayout.stopShimmerAnimation()
+    }
+
+    private fun refreshFeeds(){
+        feedUiBinding.rvFeedDigest.visibility = View.GONE
+        feedUiBinding.shimmerFrameLayout.startShimmerAnimation()
+        feedDigestViewModel?.getFeedDigest()
     }
 
     private fun showFeedDigestData() {
