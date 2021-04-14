@@ -27,28 +27,16 @@ import org.robolectric.annotation.Config
 
 @Config(sdk = [Build.VERSION_CODES.O_MR1])
 @RunWith(RobolectricTestRunner::class)
-class FeedDigestActivityTest {
+class FeedDigestEmptyDataTest {
 
     private lateinit var activity: FeedDigestActivity
 
     private lateinit var activityController: ActivityController<FeedDigestActivity>
 
-
     @Rule
     @JvmField
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
-
-    /*This test is used to test by post feed digest list to live data*/
-    @Test
-    fun checkFeedDigestDataIsLoaded() {
-        activityController = Robolectric.buildActivity(FeedDigestActivity::class.java)
-        activity = activityController.get()
-        activityController.create()
-        activityController.start()
-        activity.feedDigestViewModel?.feedDigestResponse?.postValue(FeedDigestItemFactory().getFeedDigestItem())
-        assertEquals(View.VISIBLE, activity.feedUiBinding.rvFeedDigest.visibility)
-    }
 
     /*This test is used to test by post empty feed digest list to live data*/
     @Test
@@ -60,17 +48,4 @@ class FeedDigestActivityTest {
         activity.feedDigestViewModel?.feedDigestResponse?.postValue(FeedDigestItemFactory().getEmptyFeedDigestItem())
         assertEquals(View.VISIBLE, activity.feedUiBinding.noFeedData.visibility)
     }
-
-
-    /*This test is used to test by post error to live data*/
-    @Test
-    fun checkFeedDigestInError() {
-        activityController = Robolectric.buildActivity(FeedDigestActivity::class.java)
-        activity = activityController.get()
-        activityController.create()
-        activityController.start()
-        activity.feedDigestViewModel?.feedDigestResponse?.postValue(FeedDigestItemFactory().getEmptyFeedDigestItem())
-        assertEquals(View.VISIBLE, activity.feedUiBinding.noFeedData.visibility)
-    }
-
 }
