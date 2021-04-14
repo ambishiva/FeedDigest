@@ -23,4 +23,8 @@ class FeedDigestItemFactory {
         val feedDigestList = ArrayList<FeedDigest>()
         return feedDigestList
     }
+
+    fun fetFeedDigestError(): Throwable {
+        return Throwable("Server Error-502")
+    }
 }

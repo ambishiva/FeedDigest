@@ -26,7 +26,6 @@ class FeedDigestErrorTest {
     @JvmField
     val mockitoRule: MockitoRule = MockitoJUnit.rule()
 
-
     /*This test is used to test by post error to live data*/
     @Test
     fun checkFeedDigestError() {
@@ -34,7 +33,7 @@ class FeedDigestErrorTest {
         activity = activityController.get()
         activityController.create()
         activityController.start()
-        activity.feedDigestViewModel?.feedDigestResponseError?.postValue(Throwable("Server Error - 502"))
+        activity.feedDigestViewModel?.feedDigestResponseError?.postValue(FeedDigestItemFactory().fetFeedDigestError())
         assertEquals(View.VISIBLE, activity.feedUiBinding.noFeedData.visibility)
     }
 
