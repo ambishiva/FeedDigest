@@ -1,8 +1,9 @@
 package com.wipro.feeddigest
 
 import android.os.Build
+import android.util.Log
 import android.view.View
-import com.wipro.feeddigest.adapter.FeedDigestAdapter
+import android.widget.TextView
 import com.wipro.feeddigest.ui.FeedDigestActivity
 import junit.framework.Assert.assertEquals
 import org.junit.Rule
@@ -14,6 +15,7 @@ import org.robolectric.Robolectric
 import org.robolectric.RobolectricTestRunner
 import org.robolectric.android.controller.ActivityController
 import org.robolectric.annotation.Config
+
 
 @Config(sdk = [Build.VERSION_CODES.O_MR1])
 @RunWith(RobolectricTestRunner::class)

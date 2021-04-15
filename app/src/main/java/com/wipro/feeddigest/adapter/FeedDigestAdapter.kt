@@ -101,4 +101,8 @@ class FeedDigestAdapter() : RecyclerView.Adapter<FeedDigestAdapter.FeedDigestVie
             this.feedDigestList = feedDigestList
         notifyDataSetChanged()
     }
+
+    fun getFeedDigestList(): List<FeedDigest> {
+        return feedDigestList
+    }
 }
