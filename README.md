@@ -10,6 +10,7 @@ Feed Digest Business Logic Test Cases Covered:
 1.  Feed Digest Dummy Data Test
 2.  Feed Digest Empty Data Test
 3.  Error Digest Error Test
+4.  Feed Digest Data Size Test
 ```
 
 Feed Digest UI Test Cases Covered:
