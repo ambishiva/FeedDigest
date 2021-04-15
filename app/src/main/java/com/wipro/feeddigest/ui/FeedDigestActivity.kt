@@ -78,6 +78,7 @@ class FeedDigestActivity : AppCompatActivity() {
                 showNoFeedDigest()
             } else {
                 showFeedDigestData()
+
                 feedDigestAdapter?.setFeedDigest(feedDigestList)
             }
         })
