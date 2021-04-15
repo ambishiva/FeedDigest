@@ -33,6 +33,7 @@ class FeedDigestActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         feedUiBinding = FeedUiBinding.inflate(layoutInflater)
 
+
         setContentView(feedUiBinding.root)
         initialiseUI()
         addFeedDataObserver()
