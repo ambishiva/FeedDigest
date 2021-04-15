@@ -15,8 +15,7 @@ private const val TAG = "feed-digest-ui"
  */
 object FeedDigestRepository {
 
-    var feedDigestList = ArrayList<FeedDigest>()
-    fun getFeeds(callback: (FeedDigestApiResponse) -> Unit): ArrayList<FeedDigest> {
+    fun getFeeds(callback: (FeedDigestApiResponse) -> Unit) {
         val url = "${Api.deviceBaseUrl}${Api.feedDigestUrl}"
         Rx2AndroidNetworking.get(url)
             .build()
@@ -33,7 +32,5 @@ object FeedDigestRepository {
                         callback(FeedDigestApiResponse(null, error = Throwable(error.message)))
                     }
                 })
-
-        return feedDigestList
     }
 }

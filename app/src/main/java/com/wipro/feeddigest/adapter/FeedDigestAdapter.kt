@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.Nullable
+import androidx.annotation.VisibleForTesting
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.GlideException
@@ -16,7 +17,8 @@ import javax.sql.DataSource
 
 class FeedDigestAdapter() : RecyclerView.Adapter<FeedDigestAdapter.FeedDigestViewHolder>() {
 
-    private var feedDigestList: List<FeedDigest> = ArrayList()
+    @VisibleForTesting(otherwise = VisibleForTesting.PRIVATE)
+    var feedDigestList: List<FeedDigest> = ArrayList()
 
     class FeedDigestViewHolder(val binding: FeedDigestItemBinding) :
         RecyclerView.ViewHolder(binding.root)
@@ -39,8 +41,8 @@ class FeedDigestAdapter() : RecyclerView.Adapter<FeedDigestAdapter.FeedDigestVie
     override fun onBindViewHolder(holder: FeedDigestViewHolder, position: Int) {
         with(holder) {
             with(feedDigestList[position]) {
-                binding.feedDigestTitle.text = this.title
-                binding.feedDigestDescription.text = this.description
+                binding.feedDigestTitle.text = title
+                binding.feedDigestDescription.text = description
                 Glide.with(holder.itemView.context)
                     .load(this.imageHref)
                     .listener(object : RequestListener<Drawable> {
@@ -70,19 +72,19 @@ class FeedDigestAdapter() : RecyclerView.Adapter<FeedDigestAdapter.FeedDigestVie
                     .into(binding.feedDigestImage)
 
                 // Hide the description is empy from backend
-                if (this.description.isNullOrEmpty()) binding.feedDigestDescription.visibility =
+                if (description.isNullOrBlank()) binding.feedDigestDescription.visibility =
                     View.GONE
                 else
                     binding.feedDigestDescription.visibility = View.VISIBLE
 
                 // Hide the title is empy from backend
-                if (this.title.isNullOrEmpty()) binding.feedDigestTitle.visibility = View.GONE
+                if (title.isNullOrBlank()) binding.feedDigestTitle.visibility = View.GONE
                 else
                     binding.feedDigestTitle.visibility = View.VISIBLE
 
 
                 //Hide the item view if all the data from cloud is empty
-                if (this.title.isNullOrEmpty() && this.description.isNullOrEmpty() && this.imageHref.isNullOrEmpty()) {
+                if (title.isNullOrBlank() && description.isNullOrBlank() && imageHref.isNullOrBlank()) {
                     holder.itemView.visibility = View.GONE
                     holder.itemView.layoutParams = RecyclerView.LayoutParams(0, 0)
                 } else {
@@ -97,12 +99,9 @@ class FeedDigestAdapter() : RecyclerView.Adapter<FeedDigestAdapter.FeedDigestVie
     }
 
     fun setFeedDigest(feedDigestList: List<FeedDigest>?) {
-        if (feedDigestList != null)
+        feedDigestList?.let {
             this.feedDigestList = feedDigestList
-        notifyDataSetChanged()
-    }
-
-    fun getFeedDigestList(): List<FeedDigest> {
-        return feedDigestList
+            notifyDataSetChanged()
+        }
     }
 }

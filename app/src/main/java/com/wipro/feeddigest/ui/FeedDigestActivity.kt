@@ -52,15 +52,17 @@ class FeedDigestActivity : AppCompatActivity() {
     }
 
     private fun initialiseUI() {
-        feedUiBinding.rvFeedDigest.layoutManager = LinearLayoutManager(this)
-        feedDigestAdapter = FeedDigestAdapter()
-        feedUiBinding.rvFeedDigest.addItemDecoration(
-            DividerItemDecoration(
-                feedUiBinding.rvFeedDigest.context,
-                (feedUiBinding.rvFeedDigest.layoutManager as LinearLayoutManager).orientation
+        feedUiBinding.rvFeedDigest.let {
+            it.layoutManager = LinearLayoutManager(this)
+            feedDigestAdapter = FeedDigestAdapter()
+            it.addItemDecoration(
+                DividerItemDecoration(
+                    this,
+                    (it.layoutManager as LinearLayoutManager).orientation
+                )
             )
-        )
-        feedUiBinding.rvFeedDigest.adapter = feedDigestAdapter
+            it.adapter = feedDigestAdapter
+        }
     }
 
     /**
@@ -98,9 +100,11 @@ class FeedDigestActivity : AppCompatActivity() {
     This method is responsible for hide and visible the view when no feed is available
      */
     private fun showNoFeedDigest() {
-        feedUiBinding.rvFeedDigest.visibility = View.GONE
-        feedUiBinding.noFeedData.visibility = View.VISIBLE
-        feedUiBinding.shimmerFrameLayout.stopShimmerAnimation()
+        feedUiBinding.let {
+            it.rvFeedDigest.visibility = View.GONE
+            it.noFeedData.visibility = View.VISIBLE
+            it.shimmerFrameLayout.stopShimmerAnimation()
+        }
     }
 
 

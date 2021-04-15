@@ -19,8 +19,15 @@ android {
 
     buildTypes {
         release {
+            debuggable false
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String", "BASE_URL", "\"https://dl.dropboxusercontent.com/\""
+        }
+        debug {
+            debuggable true
+            minifyEnabled false
+            buildConfigField "String", "BASE_URL", "\"https://dl.dropboxusercontent.com/\""
         }
     }
     compileOptions {
