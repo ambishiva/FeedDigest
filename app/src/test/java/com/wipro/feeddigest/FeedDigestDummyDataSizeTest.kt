@@ -1,7 +1,6 @@
 package com.wipro.feeddigest
 
 import android.os.Build
-import android.view.View
 import com.wipro.feeddigest.adapter.FeedDigestAdapter
 import com.wipro.feeddigest.ui.FeedDigestActivity
 import junit.framework.Assert.assertEquals
@@ -17,7 +16,7 @@ import org.robolectric.annotation.Config
 
 @Config(sdk = [Build.VERSION_CODES.O_MR1])
 @RunWith(RobolectricTestRunner::class)
-class FeedDigestDummyDataTest {
+class FeedDigestDummyDataSizeTest {
 
     private lateinit var activity: FeedDigestActivity
 
@@ -30,12 +29,13 @@ class FeedDigestDummyDataTest {
 
     /*This test is used to test by post feed digest list to live data*/
     @Test
-    fun checkFeedDigestDataLoaded() {
+    fun checkFeedDigestDataSize() {
         activityController = Robolectric.buildActivity(FeedDigestActivity::class.java)
         activity = activityController.get()
         activityController.create()
         activityController.start()
         activity.feedDigestViewModel?.feedDigestResponse?.postValue(FeedDigestItemFactory().getFeedDigestItem())
-        assertEquals(View.VISIBLE, activity.feedUiBinding.rvFeedDigest.visibility)
+        val dataSize = activity.feedDigestAdapter?.itemCount
+        assertEquals(dataSize, 15)
     }
 }

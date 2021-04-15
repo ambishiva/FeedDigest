@@ -18,7 +18,7 @@ class FeedDigestAdapter() : RecyclerView.Adapter<FeedDigestAdapter.FeedDigestVie
 
     private var feedDigestList: List<FeedDigest> = ArrayList()
 
-    inner class FeedDigestViewHolder(val binding: FeedDigestItemBinding) :
+    class FeedDigestViewHolder(val binding: FeedDigestItemBinding) :
         RecyclerView.ViewHolder(binding.root)
 
 
