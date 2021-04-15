@@ -4,7 +4,7 @@
 FeedDigest is an android application that will show the feeds from cloud using mvvm architecture, RXandroid networking for network calls, espresso, roboelectric, mockito for unit testing and facebook shimmer layout for adding shimmer effect.
 Espresso is used for UI Testing and Roboelctric, mockito is used for business logic testing.
 
-Feed Deigest Business Logic Test Cases Covered:
+Feed Digest Business Logic Test Cases Covered:
 
 ```sh
 1.  Feed Digest Dummy Data Test
@@ -12,7 +12,7 @@ Feed Deigest Business Logic Test Cases Covered:
 3.  Error Digest Error Test
 ```
 
-Feed Deigest UI Test Cases Covered:
+Feed Digest UI Test Cases Covered:
 
 ```sh
 1.  Feed Digest Activity Launch Test
