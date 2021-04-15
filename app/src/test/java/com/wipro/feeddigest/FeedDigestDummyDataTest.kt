@@ -2,22 +2,11 @@ package com.wipro.feeddigest
 
 import android.os.Build
 import android.view.View
-import androidx.lifecycle.LifecycleOwner
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
-import com.wipro.feeddigest.model.FeedDigest
 import com.wipro.feeddigest.ui.FeedDigestActivity
-import com.wipro.feeddigest.viewmodel.FeedDigestViewModel
 import junit.framework.Assert.assertEquals
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
-import org.mockito.ArgumentCaptor
-import org.mockito.ArgumentMatchers
-import org.mockito.Captor
-import org.mockito.Mock
-import org.mockito.Mockito.verify
 import org.mockito.junit.MockitoJUnit
 import org.mockito.junit.MockitoRule
 import org.robolectric.Robolectric

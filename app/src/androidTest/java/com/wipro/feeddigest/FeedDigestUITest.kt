@@ -25,7 +25,7 @@ private const val TAG = "test-case"
  * See [testing documentation](http://d.android.com/tools/testing).
  */
 @RunWith(AndroidJUnit4::class)
-class ExampleInstrumentedTest {
+class FeedDigestUITest {
 
     private val activityRule = ActivityTestRule(FeedDigestActivity::class.java, false, false)
 
