@@ -15,7 +15,6 @@ import com.wipro.feeddigest.adapter.FeedDigestAdapter
 import com.wipro.feeddigest.databinding.FeedUiBinding
 import com.wipro.feeddigest.utilities.Utility
 import com.wipro.feeddigest.viewmodel.FeedDigestViewModel
-import org.jetbrains.annotations.TestOnly
 
 /**
  * Main Feed Digest Screen
@@ -39,8 +38,8 @@ class FeedDigestActivity : AppCompatActivity() {
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
-        menuInflater.inflate(R.menu.main, menu);
-        return true;
+        menuInflater.inflate(R.menu.main, menu)
+        return true
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
@@ -108,7 +107,7 @@ class FeedDigestActivity : AppCompatActivity() {
     This method is used to refresh the feeds
      */
     private fun fetchFeeds() {
-        if (Utility.isNetworkAvailable(FeedDigestActivity@ this)) {
+        if (Utility.isNetworkAvailable(this)) {
             showLoadingView()
             feedDigestViewModel?.getFeedDigest()
         } else {
@@ -151,10 +150,5 @@ class FeedDigestActivity : AppCompatActivity() {
     override fun onPause() {
         super.onPause()
         feedUiBinding.shimmerFrameLayout.stopShimmerAnimation()
-    }
-
-    @TestOnly
-    fun setTestViewModel(feedViewModel: FeedDigestViewModel) {
-        feedDigestViewModel = feedViewModel
     }
 }
