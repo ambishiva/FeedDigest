@@ -13,7 +13,6 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.wipro.feeddigest.R
 import com.wipro.feeddigest.adapter.FeedDigestAdapter
 import com.wipro.feeddigest.databinding.FeedUiBinding
-import com.wipro.feeddigest.model.FeedDigest
 import com.wipro.feeddigest.utilities.Utility
 import com.wipro.feeddigest.viewmodel.FeedDigestViewModel
 import org.jetbrains.annotations.TestOnly
@@ -101,12 +100,7 @@ class FeedDigestActivity : AppCompatActivity() {
     This method is responsible for hide and visible the view when no feed is available
      */
     private fun showNoFeedDigest() {
-        feedUiBinding.let {
-            it.rvFeedDigest.visibility = View.GONE
-            it.noFeedData.visibility = View.VISIBLE
-            it.shimmerFrameLayout.visibility = View.GONE
-            it.shimmerFrameLayout.stopShimmerAnimation()
-        }
+        showNoDataView(getString(R.string.no_data_found))
     }
 
 
@@ -115,22 +109,32 @@ class FeedDigestActivity : AppCompatActivity() {
      */
     private fun fetchFeeds() {
         if (Utility.isNetworkAvailable(FeedDigestActivity@ this)) {
-            feedUiBinding.let {
-                it.noFeedData.visibility = View.GONE
-                it.shimmerFrameLayout.visibility = View.VISIBLE
-                it.rvFeedDigest.visibility = View.GONE
-                it.shimmerFrameLayout.startShimmerAnimation()
-            }
+            showLoadingView()
             feedDigestViewModel?.getFeedDigest()
         } else {
-            feedUiBinding.let {
-                it.shimmerFrameLayout.visibility = View.GONE
-                it.rvFeedDigest.visibility = View.GONE
-                it.noFeedData.visibility = View.VISIBLE
-                it.noFeedData.text = "No internet available"
-            }
+            showNoDataView(getString(R.string.no_internet_available))
         }
     }
+
+    private fun showNoDataView(message: String) {
+        feedUiBinding.let {
+            it.shimmerFrameLayout.stopShimmerAnimation()
+            it.shimmerFrameLayout.visibility = View.GONE
+            it.rvFeedDigest.visibility = View.GONE
+            it.noFeedData.visibility = View.VISIBLE
+            it.noFeedData.text = message
+        }
+    }
+
+    private fun showLoadingView() {
+        feedUiBinding.let {
+            it.noFeedData.visibility = View.GONE
+            it.rvFeedDigest.visibility = View.GONE
+            it.shimmerFrameLayout.visibility = View.VISIBLE
+            it.shimmerFrameLayout.startShimmerAnimation()
+        }
+    }
+
 
     /*
     This method is used to visible and hide the views for showing the feeds
@@ -138,6 +142,7 @@ class FeedDigestActivity : AppCompatActivity() {
     private fun showFeedDigestData() {
         feedUiBinding.let {
             it.shimmerFrameLayout.stopShimmerAnimation()
+            it.shimmerFrameLayout.visibility = View.GONE
             it.rvFeedDigest.visibility = View.VISIBLE
             it.noFeedData.visibility = View.GONE
         }
