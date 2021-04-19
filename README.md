@@ -31,3 +31,4 @@ Feed Digest UI Test Cases Covered:
 - Espresso
 - Mockito
 - RoboElectric
+- Github actions and flows
