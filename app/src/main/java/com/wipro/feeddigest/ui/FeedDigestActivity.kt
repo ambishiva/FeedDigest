@@ -142,8 +142,8 @@ class FeedDigestActivity : AppCompatActivity() {
         feedUiBinding.let {
             it.shimmerFrameLayout.stopShimmerAnimation()
             it.shimmerFrameLayout.visibility = View.GONE
-            it.rvFeedDigest.visibility = View.VISIBLE
             it.noFeedData.visibility = View.GONE
+            it.rvFeedDigest.visibility = View.VISIBLE
         }
     }
 
