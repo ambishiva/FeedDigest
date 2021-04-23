@@ -72,6 +72,7 @@ class FeedDigestActivity : AppCompatActivity() {
     private fun addFeedDataObserver() {
         feedDigestViewModel = ViewModelProvider(this).get(FeedDigestViewModel::class.java)
         fetchFeeds()
+
         feedDigestViewModel?.feedDigestResponse?.observe(this, Observer { feedDigestList ->
             if (feedDigestList.isEmpty()) {
                 showNoFeedDigest()
@@ -116,21 +117,21 @@ class FeedDigestActivity : AppCompatActivity() {
     }
 
     private fun showNoDataView(message: String) {
-        feedUiBinding.let {
-            it.shimmerFrameLayout.stopShimmerAnimation()
-            it.shimmerFrameLayout.visibility = View.GONE
-            it.rvFeedDigest.visibility = View.GONE
-            it.noFeedData.visibility = View.VISIBLE
-            it.noFeedData.text = message
+        feedUiBinding.apply {
+            shimmerFrameLayout.stopShimmerAnimation()
+            shimmerFrameLayout.visibility = View.GONE
+            rvFeedDigest.visibility = View.GONE
+            noFeedData.visibility = View.VISIBLE
+            noFeedData.text = message
         }
     }
 
     private fun showLoadingView() {
-        feedUiBinding.let {
-            it.noFeedData.visibility = View.GONE
-            it.rvFeedDigest.visibility = View.GONE
-            it.shimmerFrameLayout.visibility = View.VISIBLE
-            it.shimmerFrameLayout.startShimmerAnimation()
+        feedUiBinding.apply {
+            noFeedData.visibility = View.GONE
+            rvFeedDigest.visibility = View.GONE
+            shimmerFrameLayout.visibility = View.VISIBLE
+            shimmerFrameLayout.startShimmerAnimation()
         }
     }
 
@@ -139,11 +140,11 @@ class FeedDigestActivity : AppCompatActivity() {
     This method is used to visible and hide the views for showing the feeds
      */
     private fun showFeedDigestData() {
-        feedUiBinding.let {
-            it.shimmerFrameLayout.stopShimmerAnimation()
-            it.shimmerFrameLayout.visibility = View.GONE
-            it.noFeedData.visibility = View.GONE
-            it.rvFeedDigest.visibility = View.VISIBLE
+        feedUiBinding.apply {
+            shimmerFrameLayout.stopShimmerAnimation()
+            shimmerFrameLayout.visibility = View.GONE
+            noFeedData.visibility = View.GONE
+            rvFeedDigest.visibility = View.VISIBLE
         }
     }
 
