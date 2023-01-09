@@ -8,8 +8,6 @@ import android.net.NetworkCapabilities
  * Utility class for the app where application can access it from any activity
  */
 
-private const val TAG = "chs-utility"
-
 object Utility {
 
     fun isNetworkAvailable(context: Context): Boolean {

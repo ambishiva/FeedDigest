@@ -3,7 +3,6 @@ package com.wipro.feeddigest
 import android.util.Log
 import android.view.View
 import androidx.recyclerview.widget.RecyclerView
-import androidx.test.espresso.Espresso
 import androidx.test.espresso.Espresso.onView
 import androidx.test.espresso.assertion.ViewAssertions.matches
 import androidx.test.espresso.matcher.ViewMatchers.*
@@ -52,9 +51,9 @@ class FeedDigestUITest {
     fun checkFeedDigestData() {
         activityRule.launchActivity(null)
         wait_for_seconds(6000, "ms")
-        Espresso.onView(withId(R.id.rv_feed_digest))
+        onView(withId(R.id.rv_feed_digest))
             .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
-        onView(withId(R.id.rv_feed_digest)).check(matches(withRecyclerViewSize(12)));
+        onView(withId(R.id.rv_feed_digest)).check(matches(withRecyclerViewSize(12)))
     }
 
     /*
@@ -64,12 +63,11 @@ class FeedDigestUITest {
     fun checkFeedDigestDataIsNotVisible() {
         activityRule.launchActivity(null)
         wait_for_seconds(6000, "ms")
-        Espresso.onView(withId(R.id.no_feed_data))
+        onView(withId(R.id.no_feed_data))
             .check(matches(withEffectiveVisibility(Visibility.VISIBLE)))
     }
 
-
-    fun wait_for_seconds(duration: Long, units: String) {
+    private fun wait_for_seconds(duration: Long, units: String) {
         Log.i(TAG, "Waiting for '$duration' '$units'")
         val multiplier = when (units) {
             "millisecond", "ms" -> 1
@@ -82,7 +80,7 @@ class FeedDigestUITest {
         Thread.sleep(duration * multiplier)
     }
 
-    fun withRecyclerViewSize(size: Int): Matcher<View?>? {
+    private fun withRecyclerViewSize(size: Int): Matcher<View?> {
         return object : TypeSafeMatcher<View?>() {
             override fun matchesSafely(item: View?): Boolean {
                 val actualListSize = (item as RecyclerView).adapter!!.itemCount

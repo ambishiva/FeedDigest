@@ -4,7 +4,7 @@ import android.os.Build
 import android.view.View
 import com.wipro.feeddigest.adapter.FeedDigestAdapter
 import com.wipro.feeddigest.ui.FeedDigestActivity
-import junit.framework.Assert.assertEquals
+import org.junit.Assert.assertEquals
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

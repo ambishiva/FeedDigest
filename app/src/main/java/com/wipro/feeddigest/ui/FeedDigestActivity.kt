@@ -6,7 +6,6 @@ import android.view.MenuItem
 import android.view.View
 import androidx.annotation.VisibleForTesting
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.DividerItemDecoration
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -70,30 +69,30 @@ class FeedDigestActivity : AppCompatActivity() {
      * and observe the feeds accordingly
      */
     private fun addFeedDataObserver() {
-        feedDigestViewModel = ViewModelProvider(this).get(FeedDigestViewModel::class.java)
+        feedDigestViewModel = ViewModelProvider(this)[FeedDigestViewModel::class.java]
         fetchFeeds()
 
-        feedDigestViewModel?.feedDigestResponse?.observe(this, Observer { feedDigestList ->
+        feedDigestViewModel?.feedDigestResponse?.observe(this) { feedDigestList ->
             if (feedDigestList.isEmpty()) {
                 showNoFeedDigest()
             } else {
                 showFeedDigestData()
                 feedDigestAdapter?.setFeedDigest(feedDigestList)
             }
-        })
+        }
 
-        feedDigestViewModel?.feedDigestTitle?.observe(this, Observer { digestTitle ->
+        feedDigestViewModel?.feedDigestTitle?.observe(this) { digestTitle ->
             title = digestTitle
-        })
+        }
 
-        feedDigestViewModel?.feedDigestResponseError?.observe(this, Observer {
+        feedDigestViewModel?.feedDigestResponseError?.observe(this) {
             showNoFeedDigest()
-        })
+        }
     }
 
     override fun onResume() {
         super.onResume()
-        feedUiBinding.shimmerFrameLayout.startShimmerAnimation()
+        feedUiBinding.shimmerFrameLayout.startShimmer()
     }
 
     /*
@@ -118,7 +117,7 @@ class FeedDigestActivity : AppCompatActivity() {
 
     private fun showNoDataView(message: String) {
         feedUiBinding.apply {
-            shimmerFrameLayout.stopShimmerAnimation()
+            shimmerFrameLayout.stopShimmer()
             shimmerFrameLayout.visibility = View.GONE
             rvFeedDigest.visibility = View.GONE
             noFeedData.visibility = View.VISIBLE
@@ -131,7 +130,7 @@ class FeedDigestActivity : AppCompatActivity() {
             noFeedData.visibility = View.GONE
             rvFeedDigest.visibility = View.GONE
             shimmerFrameLayout.visibility = View.VISIBLE
-            shimmerFrameLayout.startShimmerAnimation()
+            shimmerFrameLayout.startShimmer()
         }
     }
 
@@ -141,7 +140,7 @@ class FeedDigestActivity : AppCompatActivity() {
      */
     private fun showFeedDigestData() {
         feedUiBinding.apply {
-            shimmerFrameLayout.stopShimmerAnimation()
+            shimmerFrameLayout.stopShimmer()
             shimmerFrameLayout.visibility = View.GONE
             noFeedData.visibility = View.GONE
             rvFeedDigest.visibility = View.VISIBLE
@@ -150,6 +149,6 @@ class FeedDigestActivity : AppCompatActivity() {
 
     override fun onPause() {
         super.onPause()
-        feedUiBinding.shimmerFrameLayout.stopShimmerAnimation()
+        feedUiBinding.shimmerFrameLayout.stopShimmer()
     }
 }

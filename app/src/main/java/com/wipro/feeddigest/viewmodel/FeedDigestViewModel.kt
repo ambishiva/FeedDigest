@@ -5,9 +5,6 @@ import androidx.lifecycle.ViewModel
 import com.wipro.feeddigest.model.FeedDigest
 import com.wipro.feeddigest.repository.FeedDigestRepository
 
-
-private const val TAG = "feed-digest-ui"
-
 /**
  * The ViewModel class to store and manage date data in a lifecycle conscious way.
  * Helper class for the UI controller that is responsible for preparing data for the UI

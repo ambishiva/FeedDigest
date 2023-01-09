@@ -20,8 +20,7 @@ class FeedDigestItemFactory {
     }
 
     fun getEmptyFeedDigestItem(): ArrayList<FeedDigest> {
-        val feedDigestList = ArrayList<FeedDigest>()
-        return feedDigestList
+        return ArrayList()
     }
 
     fun fetFeedDigestError(): Throwable {
